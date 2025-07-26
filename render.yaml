@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: weather-dashboard
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    dockerCommand: ./weather-dashboard
+    healthCheckPath: /
+    envVars:
+      - key: WEATHERAPI_KEY
+        sync: false
+      - key: PORT
+        value: 8080
+      - key: HOST
+        value: 0.0.0.0
+      - key: DB_PATH
+        value: /app/data/weather.db
+      - key: GIN_MODE
+        value: release 
