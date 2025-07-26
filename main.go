@@ -89,6 +89,7 @@ func initDB() {
 func searchCityWeatherAPI(city string) ([]WeatherAPISearchResult, error) {
 	apiKey := os.Getenv("WEATHERAPI_KEY")
 	if apiKey == "" {
+		log.Println("API key not found. Key is: ", apiKey)
 		return nil, fmt.Errorf("API key not found")
 	}
 	url := fmt.Sprintf("http://api.weatherapi.com/v1/search.json?key=%s&q=%s", apiKey, city)
@@ -170,6 +171,7 @@ func getWeatherConditionDescription(code int) string {
 func fetchWeatherByCoordinates(lat, lon string) (*WeatherData, error) {
 	apiKey := os.Getenv("WEATHERAPI_KEY")
 	if apiKey == "" {
+		log.Println("API key not found. Key is: ", apiKey)
 		return nil, fmt.Errorf("API key not found")
 	}
 	url := fmt.Sprintf("http://api.weatherapi.com/v1/current.json?key=%s&q=%s,%s", apiKey, lat, lon)
@@ -243,7 +245,10 @@ func getWeatherHistory() ([]WeatherData, error) {
 func main() {
 	if err := godotenv.Load(".env"); err != nil {
 		log.Printf("Warning: .env file not found, using system environment variables")
+	} else {
+		fmt.Println("Loaded .env file")
 	}
+	fmt.Println("WEATHERAPI_KEY:", os.Getenv("WEATHERAPI_KEY"))
 
 	initDB()
 	defer db.Close()
