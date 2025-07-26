@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="glass-card header">
+            <h1>🌤️ Weather Dashboard</h1>
+            <p>Get real-time weather information for any city</p>
+        </div>
+
+        <div class="glass-card search-section">
+            <div class="search-container">
+                <input type="text" id="cityInput" placeholder="Enter city name..." class="search-input">
+                <button onclick="getWeather()" class="search-btn">Search</button>
+                <button onclick="getMyLocation()" class="location-btn">📍 My Location</button>
+            </div>
+        </div>
+
+        <div class="weather-grid">
+            <div class="glass-card weather-card" id="currentWeather" style="display: none;">
+                <h2>Current Weather</h2>
+                <div class="weather-info">
+                    <div class="city-name" id="cityName"></div>
+                    <div class="location-details" id="locationDetails"></div>
+                    <div class="temperature" id="temperature"></div>
+                    <div class="description" id="description"></div>
+                    <div class="humidity" id="humidity"></div>
+                    <div class="timestamp" id="timestamp"></div>
+                </div>
+            </div>
+
+            <div class="glass-card history-card">
+                <h2>Recent Searches</h2>
+                <div id="historyList" class="history-list">
+                    <p class="no-data">No recent searches</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html> 
