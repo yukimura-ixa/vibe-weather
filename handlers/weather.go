@@ -7,17 +7,31 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"weather-dashboard/models"
-	"weather-dashboard/services"
 )
+
+// Define interfaces for dependency injection
+
+type WeatherServiceInterface interface {
+	SearchCity(city string) ([]models.WeatherAPISearchResult, error)
+	GetWeatherByCoordinates(lat, lon string) (*models.WeatherData, error)
+	GetWeatherByCity(city string) (*models.WeatherData, error)
+}
+
+type DatabaseServiceInterface interface {
+	SaveWeatherData(data *models.WeatherData) error
+	GetWeatherHistory(limit int) ([]models.WeatherData, error)
+	GetWeatherHistoryDefault() ([]models.WeatherData, error)
+	Close() error
+}
 
 // WeatherHandler handles weather-related HTTP requests
 type WeatherHandler struct {
-	weatherService *services.WeatherService
-	dbService      *services.DatabaseService
+	weatherService WeatherServiceInterface
+	dbService      DatabaseServiceInterface
 }
 
 // NewWeatherHandler creates a new weather handler
-func NewWeatherHandler(weatherService *services.WeatherService, dbService *services.DatabaseService) *WeatherHandler {
+func NewWeatherHandler(weatherService WeatherServiceInterface, dbService DatabaseServiceInterface) *WeatherHandler {
 	return &WeatherHandler{
 		weatherService: weatherService,
 		dbService:      dbService,

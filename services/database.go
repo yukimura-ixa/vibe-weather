@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 
+	"weather-dashboard/handlers"
 	"weather-dashboard/models"
 
 	_ "modernc.org/sqlite"
@@ -114,3 +115,6 @@ func (s *DatabaseService) GetWeatherHistory(limit int) ([]models.WeatherData, er
 func (s *DatabaseService) GetWeatherHistoryDefault() ([]models.WeatherData, error) {
 	return s.GetWeatherHistory(models.HistoryLimit)
 }
+
+// Ensure DatabaseService implements handlers.DatabaseServiceInterface
+var _ handlers.DatabaseServiceInterface = (*DatabaseService)(nil)

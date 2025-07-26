@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"weather-dashboard/config"
+	"weather-dashboard/handlers"
 	"weather-dashboard/models"
 )
 
@@ -125,3 +126,6 @@ func (s *WeatherService) transformWeatherData(result *models.WeatherAPICurrentRe
 		Timestamp:     time.Now(),
 	}
 }
+
+// Ensure WeatherService implements handlers.WeatherServiceInterface
+var _ handlers.WeatherServiceInterface = (*WeatherService)(nil)
